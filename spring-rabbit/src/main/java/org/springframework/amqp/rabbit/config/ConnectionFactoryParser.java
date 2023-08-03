@@ -91,8 +91,10 @@ class ConnectionFactoryParser extends AbstractSingleBeanDefinitionParser {
 	protected void doParse(Element element, ParserContext parserContext, BeanDefinitionBuilder builder) {
 		if (element.hasAttribute(ADDRESSES) &&
 				(element.hasAttribute(HOST_ATTRIBUTE) || element.hasAttribute(PORT_ATTRIBUTE))) {
-			parserContext.getReaderContext().error("If the 'addresses' attribute is provided, a connection " +
-					"factory can not have 'host' or 'port' attributes.", element);
+			parserContext.getReaderContext().error("""
+					If the 'addresses' attribute is provided, a connection \
+					factory can not have 'host' or 'port' attributes.\
+					""", element);
 		}
 
 		NamespaceUtils.addConstructorArgParentRefIfAttributeDefined(builder, element, CONNECTION_FACTORY_ATTRIBUTE);

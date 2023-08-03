@@ -391,12 +391,16 @@ public class RabbitTemplateTests {
 
 		final RabbitTemplate template = new RabbitTemplate(connectionFactory);
 		Expression sendExpression = new SpelExpressionParser()
-				.parseExpression("T(org.springframework.amqp.rabbit.core.RabbitTemplateTests)" +
-						".LOOKUP_KEY_COUNT.getAndIncrement() % 2 == 0 ? 'foo' : 'bar'");
+				.parseExpression("""
+						T(org.springframework.amqp.rabbit.core.RabbitTemplateTests)\
+						.LOOKUP_KEY_COUNT.getAndIncrement() % 2 == 0 ? 'foo' : 'bar'\
+						""");
 		template.setSendConnectionFactorySelectorExpression(sendExpression);
 		Expression receiveExpression = new SpelExpressionParser()
-				.parseExpression("T(org.springframework.amqp.rabbit.core.RabbitTemplateTests)" +
-						".LOOKUP_KEY_COUNT.getAndIncrement() % 2 == 0 ? 'baz' : 'qux'");
+				.parseExpression("""
+						T(org.springframework.amqp.rabbit.core.RabbitTemplateTests)\
+						.LOOKUP_KEY_COUNT.getAndIncrement() % 2 == 0 ? 'baz' : 'qux'\
+						""");
 		template.setReceiveConnectionFactorySelectorExpression(receiveExpression);
 
 		for (int i = 0; i < 3; i++) {

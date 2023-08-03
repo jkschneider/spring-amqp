@@ -61,8 +61,10 @@ public final class MicrometerHolder {
 			this.tags = tags;
 		}
 		else {
-			throw new IllegalStateException("No micrometer registry present (or more than one and "
-					+ "there is not exactly one marked with @Primary)");
+			throw new IllegalStateException("""
+					No micrometer registry present (or more than one and \
+					there is not exactly one marked with @Primary)\
+					""");
 		}
 	}
 

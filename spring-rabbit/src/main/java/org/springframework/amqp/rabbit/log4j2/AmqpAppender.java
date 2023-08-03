@@ -244,9 +244,9 @@ public class AmqpAppender extends AbstractAppender {
 		if (logEvent.getSource() != null) {
 			amqpProps.setHeader(
 					"location",
-					String.format("%s.%s()[%s]", logEvent.getSource().getClassName(),
-							logEvent.getSource().getMethodName(),
-							logEvent.getSource().getLineNumber()));
+		"%s.%s()[%s]".formatted(logEvent.getSource().getClassName(),
+	logEvent.getSource().getMethodName(),
+	logEvent.getSource().getLineNumber()));
 		}
 
 		doSend(event, logEvent, amqpProps);

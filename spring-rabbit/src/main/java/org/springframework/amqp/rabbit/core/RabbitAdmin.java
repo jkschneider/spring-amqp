@@ -971,8 +971,10 @@ public class RabbitAdmin implements AmqpAdmin, ApplicationContextAware, Applicat
 
 	private boolean isDeclaringImplicitQueueBinding(Binding binding) {
 		if (isImplicitQueueBinding(binding)) {
-			this.logger.debug("The default exchange is implicitly bound to every queue," +
-					" with a routing key equal to the queue name.");
+			this.logger.debug("""
+					The default exchange is implicitly bound to every queue,\
+					 with a routing key equal to the queue name.\
+					""");
 			return true;
 		}
 		return false;

@@ -51,9 +51,9 @@ public class RemoteInvocationAwareMessageConverterAdapter implements MessageConv
 	@Override
 	public Object fromMessage(Message message) throws MessageConversionException {
 		Object result = this.delegate.fromMessage(message);
-		if (result instanceof RemoteInvocationResult) {
+		if (result instanceof RemoteInvocationResult invocationResult) {
 			try {
-				result = ((RemoteInvocationResult) result).recreate();
+				result = invocationResult.recreate();
 				if (result == null) {
 					throw new MessageConversionException("RemoteInvocationResult returned null");
 				}

@@ -351,8 +351,10 @@ public abstract class AbstractConnectionFactory implements ConnectionFactory, Di
 				return;
 			}
 		}
-		this.logger.info("setAddresses() called with an empty value, will be using the host+port "
-				+ " or addressResolver properties for connections");
+		this.logger.info("""
+				setAddresses() called with an empty value, will be using the host+port \
+				 or addressResolver properties for connections\
+				""");
 		this.addresses = null;
 	}
 

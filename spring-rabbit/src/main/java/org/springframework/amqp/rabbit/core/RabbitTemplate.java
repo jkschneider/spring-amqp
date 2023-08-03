@@ -1080,8 +1080,10 @@ public class RabbitTemplate extends RabbitAccessor // NOSONAR type line count
 		}
 		if (cause != null && RabbitUtils.isPassiveDeclarationChannelClose((ShutdownSignalException) cause)) {
 			if (logger.isWarnEnabled()) {
-				logger.warn("Broker does not support fast replies via 'amq.rabbitmq.reply-to', temporary "
-						+ "queues will be used: " + cause.getMessage() + ".");
+				logger.warn("""
+						Broker does not support fast replies via 'amq.rabbitmq.reply-to', temporary \
+						queues will be used: \
+						""" + cause.getMessage() + ".");
 			}
 			this.replyAddress = null;
 			return false;
@@ -1918,8 +1920,10 @@ public class RabbitTemplate extends RabbitAccessor // NOSONAR type line count
 			RabbitTemplate.this.replyHolder.putIfAbsent(messageTag, pendingReply);
 
 			Assert.isNull(message.getMessageProperties().getReplyTo(),
-					"Send-and-receive methods can only be used " +
-							"if the Message does not already have a replyTo property.");
+					"""
+					Send-and-receive methods can only be used \
+					if the Message does not already have a replyTo property.\
+					""");
 			String replyTo;
 			if (RabbitTemplate.this.usingFastReplyTo) {
 				replyTo = Address.AMQ_RABBITMQ_REPLY_TO;
@@ -1988,8 +1992,10 @@ public class RabbitTemplate extends RabbitAccessor // NOSONAR type line count
 	protected Message doSendAndReceiveWithFixed(final String exchange, final String routingKey, final Message message,
 			@Nullable final CorrelationData correlationData) {
 
-		Assert.state(this.isListener, () -> "RabbitTemplate is not configured as MessageListener - "
-				+ "cannot use a 'replyAddress': " + this.replyAddress);
+		Assert.state(this.isListener, () -> """
+				RabbitTemplate is not configured as MessageListener - \
+				cannot use a 'replyAddress': \
+				""" + this.replyAddress);
 		return execute(channel -> {
 			return doSendAndReceiveAsListener(exchange, routingKey, message, correlationData, channel, false);
 		}, obtainTargetConnectionFactory(this.sendConnectionFactorySelectorExpression, message));
@@ -2607,9 +2613,11 @@ public class RabbitTemplate extends RabbitAccessor // NOSONAR type line count
 		if (replyTo == null) {
 			if (this.exchange == null) {
 				throw new AmqpException(
-						"Cannot determine ReplyTo message property value: "
-								+ "Request message does not contain reply-to property, " +
-								"and no default Exchange was set.");
+						"""
+						Cannot determine ReplyTo message property value: \
+						Request message does not contain reply-to property, \
+						and no default Exchange was set.\
+						""");
 			}
 			replyTo = new Address(this.exchange, this.routingKey);
 		}
@@ -2634,8 +2642,10 @@ public class RabbitTemplate extends RabbitAccessor // NOSONAR type line count
 		}
 		else {
 			throw new IllegalStateException(
-					"Channel does not support confirms or returns; " +
-							"is the connection factory configured for confirms or returns?");
+					"""
+					Channel does not support confirms or returns; \
+					is the connection factory configured for confirms or returns?\
+					""");
 		}
 	}
 

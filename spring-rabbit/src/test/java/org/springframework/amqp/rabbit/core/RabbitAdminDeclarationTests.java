@@ -467,7 +467,7 @@ public class RabbitAdminDeclarationTests {
 		@Bean
 		public DeclarableCustomizer customizer1() {
 			return dec -> {
-				if (dec instanceof Queue && ((Queue) dec).getName().equals("baz")) {
+				if (dec instanceof Queue queue && queue.getName().equals("baz")) {
 					dec.addArgument("added.by.customizer.1", true);
 				}
 				return dec;
@@ -477,7 +477,7 @@ public class RabbitAdminDeclarationTests {
 		@Bean
 		public DeclarableCustomizer customizer2() {
 			return dec -> {
-				if (dec instanceof Queue && ((Queue) dec).getName().equals("baz")) {
+				if (dec instanceof Queue queue && queue.getName().equals("baz")) {
 					dec.addArgument("added.by.customizer.2", true);
 				}
 				return dec;

@@ -137,8 +137,10 @@ public class ConditionalRejectingErrorHandler implements ErrorHandler {
 				if (failed != null) {
 					List<Map<String, ?>> xDeath = failed.getMessageProperties().getXDeathHeader();
 					if (xDeath != null && xDeath.size() > 0) {
-						this.logger.error("x-death header detected on a message with a fatal exception; "
-								+ "perhaps requeued from a DLQ? - discarding: " + failed);
+						this.logger.error("""
+								x-death header detected on a message with a fatal exception; \
+								perhaps requeued from a DLQ? - discarding: \
+								""" + failed);
 						handleDiscarded(failed);
 						throw new ImmediateAcknowledgeAmqpException("Fatal and x-death present");
 					}
@@ -232,8 +234,10 @@ public class ConditionalRejectingErrorHandler implements ErrorHandler {
 		protected void logFatalException(ListenerExecutionFailedException t, Throwable cause) {
 			if (this.logger.isWarnEnabled()) {
 				this.logger.warn(
-						"Fatal message conversion error; message rejected; "
-								+ "it will be dropped or routed to a dead letter exchange, if so configured: "
+						"""
+								Fatal message conversion error; message rejected; \
+								it will be dropped or routed to a dead letter exchange, if so configured: \
+								"""
 								+ t.getFailedMessage());
 			}
 		}

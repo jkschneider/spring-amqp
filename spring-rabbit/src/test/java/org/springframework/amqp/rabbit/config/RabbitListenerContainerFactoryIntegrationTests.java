@@ -77,8 +77,8 @@ public class RabbitListenerContainerFactoryIntegrationTests {
 		SimpleMessageListenerContainer messageListenerContainer =
 				containerFactory.createListenerContainer(endpoint);
 		Object listener = messageListenerContainer.getMessageListener();
-		if (listener instanceof ChannelAwareMessageListener) {
-			((ChannelAwareMessageListener) listener).onMessage(message, mock(Channel.class));
+		if (listener instanceof ChannelAwareMessageListener messageListener) {
+			messageListener.onMessage(message, mock(Channel.class));
 		}
 		else {
 			((MessageListener) listener).onMessage(message);

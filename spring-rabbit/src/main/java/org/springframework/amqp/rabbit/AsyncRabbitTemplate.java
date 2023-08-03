@@ -577,9 +577,8 @@ public class AsyncRabbitTemplate implements AsyncAmqpTemplate, ChannelAwareMessa
 				}
 				RabbitFuture<?> future = this.pending.remove(correlationId);
 				if (future != null) {
-					if (future instanceof RabbitConverterFuture) {
+					if (future instanceof RabbitConverterFuture rabbitFuture) {
 						MessageConverter messageConverter = this.template.getMessageConverter();
-						RabbitConverterFuture<Object> rabbitFuture = (RabbitConverterFuture<Object>) future;
 						Object converted = rabbitFuture.getReturnType() != null
 								&& messageConverter instanceof SmartMessageConverter smart
 								? smart.fromMessage(message,

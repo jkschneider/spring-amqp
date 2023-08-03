@@ -707,8 +707,10 @@ public class BlockingQueueConsumer {
 		else {
 			this.declaring = false;
 			this.activeObjectCounter.release(this);
-			throw new QueuesNotAvailableException("Cannot prepare queue for listener. "
-					+ "Either the queue doesn't exist or the broker will not allow us to use it.", e);
+			throw new QueuesNotAvailableException("""
+					Cannot prepare queue for listener. \
+					Either the queue doesn't exist or the broker will not allow us to use it.\
+					""", e);
 		}
 	}
 

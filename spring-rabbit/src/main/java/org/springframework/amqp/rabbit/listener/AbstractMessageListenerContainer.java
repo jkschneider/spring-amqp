@@ -1184,14 +1184,18 @@ public abstract class AbstractMessageListenerContainer extends ObservableListene
 		super.afterPropertiesSet();
 		Assert.state(
 				this.exposeListenerChannel || !getAcknowledgeMode().isManual(),
-				"You cannot acknowledge messages manually if the channel is not exposed to the listener "
-						+ "(please check your configuration and set exposeListenerChannel=true or " +
-						"acknowledgeMode!=MANUAL)");
+				"""
+				You cannot acknowledge messages manually if the channel is not exposed to the listener \
+				(please check your configuration and set exposeListenerChannel=true or \
+				acknowledgeMode!=MANUAL)\
+				""");
 		Assert.state(
 				!(getAcknowledgeMode().isAutoAck() && isChannelTransacted()),
-				"The acknowledgeMode is NONE (autoack in Rabbit terms) which is not consistent with having a "
-						+ "transactional channel. Either use a different AcknowledgeMode or make sure " +
-						"channelTransacted=false");
+				"""
+				The acknowledgeMode is NONE (autoack in Rabbit terms) which is not consistent with having a \
+				transactional channel. Either use a different AcknowledgeMode or make sure \
+				channelTransacted=false\
+				""");
 		validateConfiguration();
 		initialize();
 		checkMicrometer();
@@ -1816,13 +1820,17 @@ public abstract class AbstractMessageListenerContainer extends ObservableListene
 			}
 			else {
 				if ((isAutoDeclare() || isMismatchedQueuesFatal()) && this.logger.isDebugEnabled()) {
-					logger.debug("For 'autoDeclare' and 'mismatchedQueuesFatal' to work, there must be exactly one "
-							+ "AmqpAdmin in the context or you must inject one into this container; found: "
+					logger.debug("""
+							For 'autoDeclare' and 'mismatchedQueuesFatal' to work, there must be exactly one \
+							AmqpAdmin in the context or you must inject one into this container; found: \
+							"""
 							+ admins.size() + " for container " + toString());
 				}
 				if (isMismatchedQueuesFatal()) {
-					throw new IllegalStateException("When 'mismatchedQueuesFatal' is 'true', there must be exactly "
-							+ "one AmqpAdmin in the context or you must inject one into this container; found: "
+					throw new IllegalStateException("""
+							When 'mismatchedQueuesFatal' is 'true', there must be exactly \
+							one AmqpAdmin in the context or you must inject one into this container; found: \
+							"""
 							+ admins.size() + " for container " + toString());
 				}
 			}
@@ -1863,17 +1871,23 @@ public abstract class AbstractMessageListenerContainer extends ObservableListene
 	public void lazyLoad() {
 		if (this.mismatchedQueuesFatal) {
 			if (this.missingQueuesFatal) {
-				logger.warn("'mismatchedQueuesFatal' and 'missingQueuesFatal' are ignored during the initial start(), "
-						+ "for lazily loaded containers");
+				logger.warn("""
+						'mismatchedQueuesFatal' and 'missingQueuesFatal' are ignored during the initial start(), \
+						for lazily loaded containers\
+						""");
 			}
 			else {
-				logger.warn("'mismatchedQueuesFatal' is ignored during the initial start(), "
-						+ "for lazily loaded containers");
+				logger.warn("""
+						'mismatchedQueuesFatal' is ignored during the initial start(), \
+						for lazily loaded containers\
+						""");
 			}
 		}
 		else if (this.missingQueuesFatal) {
-			logger.warn("'missingQueuesFatal' is ignored during the initial start(), "
-					+ "for lazily loaded containers");
+			logger.warn("""
+					'missingQueuesFatal' is ignored during the initial start(), \
+					for lazily loaded containers\
+					""");
 		}
 		this.lazyLoad = true;
 	}

@@ -118,7 +118,7 @@ public abstract class AbstractRabbitAnnotationDrivenTests {
 	private void checkAdmin(Collection<?> admins) {
 		assertThat(admins).hasSize(1);
 		Object admin = admins.iterator().next();
-		assertThat(admin instanceof RabbitAdmin ? ((RabbitAdmin) admin).getBeanName() : admin).isEqualTo("myAdmin");
+		assertThat(admin instanceof RabbitAdmin ra ? ra.getBeanName() : admin).isEqualTo("myAdmin");
 	}
 
 	/**

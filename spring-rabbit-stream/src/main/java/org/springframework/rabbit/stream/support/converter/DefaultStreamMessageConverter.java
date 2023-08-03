@@ -115,35 +115,35 @@ public class DefaultStreamMessageConverter implements StreamMessageConverter {
 	}
 
 	private void mapProp(String key, Object val, ApplicationPropertiesBuilder builder) { // NOSONAR - complexity
-		if (val instanceof String) {
-			builder.entry(key, (String) val);
+		if (val instanceof String string) {
+			builder.entry(key, string);
 		}
-		else if (val instanceof Long) {
-			builder.entry(key, (Long) val);
+		else if (val instanceof Long long1) {
+			builder.entry(key, long1);
 		}
-		else if (val instanceof Integer) {
-			builder.entry(key, (Integer) val);
+		else if (val instanceof Integer integer) {
+			builder.entry(key, integer);
 		}
-		else if (val instanceof Short) {
-			builder.entry(key, (Short) val);
+		else if (val instanceof Short short1) {
+			builder.entry(key, short1);
 		}
-		else if (val instanceof Byte) {
-			builder.entry(key, (Byte) val);
+		else if (val instanceof Byte byte1) {
+			builder.entry(key, byte1);
 		}
-		else if (val instanceof Double) {
-			builder.entry(key, (Double) val);
+		else if (val instanceof Double double1) {
+			builder.entry(key, double1);
 		}
-		else if (val instanceof Float) {
-			builder.entry(key, (Float) val);
+		else if (val instanceof Float float1) {
+			builder.entry(key, float1);
 		}
-		else if (val instanceof Character) {
-			builder.entry(key, (Character) val);
+		else if (val instanceof Character character) {
+			builder.entry(key, character);
 		}
-		else if (val instanceof UUID) {
-			builder.entry(key, (UUID) val);
+		else if (val instanceof UUID iD) {
+			builder.entry(key, iD);
 		}
-		else if (val instanceof byte[]) {
-			builder.entry(key, (byte[]) val);
+		else if (val instanceof byte[] bytes) {
+			builder.entry(key, bytes);
 		}
 	}
 

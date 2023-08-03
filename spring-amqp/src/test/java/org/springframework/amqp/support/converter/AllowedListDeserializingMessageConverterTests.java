@@ -77,7 +77,7 @@ public class AllowedListDeserializingMessageConverterTests {
 
 		@Override
 		public boolean equals(Object other) {
-			return (other instanceof TestBean && this.text.equals(((TestBean) other).text));
+			return (other instanceof TestBean tb && this.text.equals(tb.text));
 		}
 
 		@Override

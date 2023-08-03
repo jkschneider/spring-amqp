@@ -96,8 +96,10 @@ public class JavaConfigFixedReplyQueueTests {
 			fail("expected exeption");
 		}
 		catch (IllegalStateException e) {
-			assertThat(e.getMessage()).contains("RabbitTemplate is not configured as MessageListener - "
-					+ "cannot use a 'replyAddress'");
+			assertThat(e.getMessage()).contains("""
+					RabbitTemplate is not configured as MessageListener - \
+					cannot use a 'replyAddress'\
+					""");
 		}
 	}
 

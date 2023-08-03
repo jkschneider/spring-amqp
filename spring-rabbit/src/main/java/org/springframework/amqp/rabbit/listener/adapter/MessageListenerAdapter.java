@@ -283,9 +283,11 @@ public class MessageListenerAdapter extends AbstractAdaptableMessageListener {
 		Object convertedMessage = extractMessage(message);
 		String methodName = getListenerMethodName(message, convertedMessage);
 		if (methodName == null) {
-			throw new AmqpIllegalStateException("No default listener method specified: "
-					+ "Either specify a non-null value for the 'defaultListenerMethod' property or "
-					+ "override the 'getListenerMethodName' method.");
+			throw new AmqpIllegalStateException("""
+					No default listener method specified: \
+					Either specify a non-null value for the 'defaultListenerMethod' property or \
+					override the 'getListenerMethodName' method.\
+					""");
 		}
 
 		// Invoke the handler method with appropriate arguments.

@@ -190,8 +190,10 @@ public class MessageListenerContainerLifecycleIntegrationTests {
 	}
 
 	@Test
-	@DisabledIf("#{T(org.springframework.amqp.rabbit.listener.MessageListenerContainerLifecycleIntegrationTests)"
-			+ ".checkIpV6()}")
+	@DisabledIf("""
+			#{T(org.springframework.amqp.rabbit.listener.MessageListenerContainerLifecycleIntegrationTests)\
+			.checkIpV6()}\
+			""")
 	public void testBadCredentials() throws Exception {
 		RabbitTemplate template = createTemplate(1);
 		com.rabbitmq.client.ConnectionFactory cf = new com.rabbitmq.client.ConnectionFactory();

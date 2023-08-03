@@ -199,9 +199,9 @@ public class DefaultMessagePropertiesConverter implements MessagePropertiesConve
 			}
 			value = writableArray;
 		}
-		else if (value instanceof List<?>) {
-			List<Object> writableList = new ArrayList<Object>(((List<?>) value).size());
-			for (Object listValue : (List<?>) value) {
+		else if (value instanceof List<?> list) {
+			List<Object> writableList = new ArrayList<Object>(list.size());
+			for (Object listValue : list) {
 				writableList.add(convertHeaderValueIfNecessary(listValue));
 			}
 			value = writableList;
@@ -256,9 +256,9 @@ public class DefaultMessagePropertiesConverter implements MessagePropertiesConve
 		if (value instanceof LongString longStr) {
 			value = convertLongString(longStr, charset);
 		}
-		else if (value instanceof List<?>) {
-			List<Object> convertedList = new ArrayList<Object>(((List<?>) value).size());
-			for (Object listValue : (List<?>) value) {
+		else if (value instanceof List<?> list) {
+			List<Object> convertedList = new ArrayList<Object>(list.size());
+			for (Object listValue : list) {
 				convertedList.add(this.convertLongStringIfNecessary(listValue, charset));
 			}
 			value = convertedList;

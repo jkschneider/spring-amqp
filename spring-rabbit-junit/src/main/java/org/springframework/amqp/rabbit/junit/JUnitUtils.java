@@ -114,8 +114,10 @@ public final class JUnitUtils {
 //			oldLbLevels.put(cat, lbLogger.getLevel());
 //			lbLogger.setLevel(ch.qos.logback.classic.Level.toLevel(level.name()));
 //		});
-		LOGGER.info("++++++++++++++++++++++++++++ "
-				+ "Overridden log level setting for: "
+		LOGGER.info("""
+				++++++++++++++++++++++++++++ \
+				Overridden log level setting for: \
+				"""
 				+ classes.stream()
 				.map(Class::getSimpleName)
 				.collect(Collectors.toList())
@@ -125,8 +127,10 @@ public final class JUnitUtils {
 	}
 
 	public static void revertLevels(String methodName, LevelsContainer container) {
-		LOGGER.info("++++++++++++++++++++++++++++ "
-				+ "Restoring log level setting for test " + methodName);
+		LOGGER.info("""
+				++++++++++++++++++++++++++++ \
+				Restoring log level setting for test \
+				""" + methodName);
 		container.oldCatLevels.forEach((key, value) -> {
 			if (!key.contains("BrokerRunning")) {
 				((Logger) LogManager.getLogger(key)).setLevel(value);

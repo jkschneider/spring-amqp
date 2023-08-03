@@ -411,12 +411,14 @@ public class RabbitListenerAnnotationBeanPostProcessor
 				ReflectionUtils.handleReflectionException(ex);
 			}
 			catch (NoSuchMethodException ex) {
-				throw new IllegalStateException(String.format(
-						"@RabbitListener method '%s' found on bean target class '%s', " +
-						"but not found in any interface(s) for a bean JDK proxy. Either " +
-						"pull the method up to an interface or switch to subclass (CGLIB) " +
-						"proxies by setting proxy-target-class/proxyTargetClass " +
-						"attribute to 'true'", method.getName(), method.getDeclaringClass().getSimpleName()), ex);
+				throw new IllegalStateException((
+			"""
+			@RabbitListener method '%s' found on bean target class '%s', \
+			but not found in any interface(s) for a bean JDK proxy. Either \
+			pull the method up to an interface or switch to subclass (CGLIB) \
+			proxies by setting proxy-target-class/proxyTargetClass \
+			attribute to 'true'\
+			""").formatted(method.getName(), method.getDeclaringClass().getSimpleName()), ex);
 			}
 		}
 		return method;
@@ -717,18 +719,18 @@ public class RabbitListenerAnnotationBeanPostProcessor
 		else if (resolvedValueToUse instanceof String str) {
 			names.add(str);
 		}
-		else if (resolvedValueToUse instanceof Iterable) {
-			for (Object object : (Iterable<Object>) resolvedValueToUse) {
+		else if (resolvedValueToUse instanceof Iterable iterable) {
+			for (Object object : iterable) {
 				resolveAsStringOrQueue(object, names, queues, what);
 			}
 		}
 		else {
-			throw new IllegalArgumentException(String.format(
-					"@RabbitListener."
-					+ what
-					+ " can't resolve '%s' as a String[] or a String "
-					+ (queues != null ? "or a Queue" : ""),
-					resolvedValue));
+			throw new IllegalArgumentException((
+		"@RabbitListener."
+	+ what
+	+ " can't resolve '%s' as a String[] or a String "
+	+ (queues != null ? "or a Queue" : "")).formatted(
+		resolvedValue));
 		}
 	}
 
@@ -892,7 +894,7 @@ public class RabbitListenerAnnotationBeanPostProcessor
 			}
 		}
 		else {
-			if (value instanceof String && !StringUtils.hasText((String) value)) {
+			if (value instanceof String string && !StringUtils.hasText(string)) {
 				putEmpty(map, key);
 			}
 			else {

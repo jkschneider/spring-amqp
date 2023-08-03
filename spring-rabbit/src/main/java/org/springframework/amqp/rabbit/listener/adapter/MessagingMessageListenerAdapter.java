@@ -278,8 +278,10 @@ public class MessagingMessageListenerAdapter extends AbstractAdaptableMessageLis
 			}
 		}
 		catch (MessagingException ex) {
-			throw new ListenerExecutionFailedException(createMessagingErrorMessage("Listener method could not " +
-					"be invoked with the incoming message", message.getPayload()), ex, amqpMessage);
+			throw new ListenerExecutionFailedException(createMessagingErrorMessage("""
+					Listener method could not \
+					be invoked with the incoming message\
+					""", message.getPayload()), ex, amqpMessage);
 		}
 		catch (Exception ex) {
 			throw new ListenerExecutionFailedException("Listener method '" +
@@ -414,8 +416,10 @@ public class MessagingMessageListenerAdapter extends AbstractAdaptableMessageLis
 						genericParameterType = extractGenericParameterTypFromMethodParameter(methodParameter);
 						if (this.isBatch && !this.isCollection) {
 							throw new IllegalStateException(
-									"Mis-configuration; a batch listener must consume a List<?> or "
-									+ "Collection<?> for method: " + this.method);
+									"""
+									Mis-configuration; a batch listener must consume a List<?> or \
+									Collection<?> for method: \
+									""" + this.method);
 						}
 
 					}

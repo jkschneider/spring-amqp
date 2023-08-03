@@ -220,8 +220,8 @@ public class SimpleMessageListenerContainerIntegration2Tests {
 
 			@Override
 			public void publishEvent(ApplicationEvent event) {
-				if (event instanceof AsyncConsumerStartedEvent) {
-					newConsumer.set(((AsyncConsumerStartedEvent) event).getConsumer());
+				if (event instanceof AsyncConsumerStartedEvent startedEvent) {
+					newConsumer.set(startedEvent.getConsumer());
 					latch2.countDown();
 				}
 			}
@@ -241,8 +241,8 @@ public class SimpleMessageListenerContainerIntegration2Tests {
 		final AtomicReference<ListenerContainerConsumerFailedEvent> eventRef = new AtomicReference<>();
 		final CountDownLatch eventLatch = new CountDownLatch(8);
 		container.setApplicationEventPublisher(event -> {
-			if (event instanceof ListenerContainerConsumerFailedEvent) {
-				eventRef.set((ListenerContainerConsumerFailedEvent) event);
+			if (event instanceof ListenerContainerConsumerFailedEvent failedEvent) {
+				eventRef.set(failedEvent);
 			}
 			if (!(event instanceof MissingQueueEvent)) {
 				events.add((AmqpEvent) event);
@@ -379,8 +379,8 @@ public class SimpleMessageListenerContainerIntegration2Tests {
 		final AtomicReference<ListenerContainerConsumerFailedEvent> eventRef = new AtomicReference<>();
 		final CountDownLatch consumeLatch2 = new CountDownLatch(1);
 		container2.setApplicationEventPublisher(event -> {
-			if (event instanceof ListenerContainerConsumerFailedEvent) {
-				eventRef.set((ListenerContainerConsumerFailedEvent) event);
+			if (event instanceof ListenerContainerConsumerFailedEvent failedEvent) {
+				eventRef.set(failedEvent);
 			}
 			else if (event instanceof ConsumeOkEvent) {
 				consumeLatch2.countDown();
@@ -635,8 +635,10 @@ public class SimpleMessageListenerContainerIntegration2Tests {
 		this.container.stop();
 		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
 		verify(logger).error(captor.capture());
-		assertThat(captor.getValue()).isEqualTo("Consumer failed to start in 100 milliseconds; does the task "
-				+ "executor have enough threads to support the container concurrency?");
+		assertThat(captor.getValue()).isEqualTo("""
+				Consumer failed to start in 100 milliseconds; does the task \
+				executor have enough threads to support the container concurrency?\
+				""");
 	}
 
 	@Test

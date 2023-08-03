@@ -438,8 +438,8 @@ public class MessageProperties implements Serializable {
 	 */
 	public Integer getDelay() {
 		Object delay = this.headers.get(X_DELAY);
-		if (delay instanceof Integer) {
-			return (Integer) delay;
+		if (delay instanceof Integer integer) {
+			return integer;
 		}
 		else {
 			return null;

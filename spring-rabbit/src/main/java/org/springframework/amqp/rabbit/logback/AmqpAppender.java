@@ -880,7 +880,7 @@ public class AmqpAppender extends AppenderBase<ILoggingEvent> {
 		if (!"?".equals(location[0])) {
 			amqpProps.setHeader(
 					"location",
-					String.format("%s.%s()[%s]", location[0], location[1], location[2]));
+		"%s.%s()[%s]".formatted(location[0], location[1], location[2]));
 		}
 
 		// Set applicationId, if we're using one

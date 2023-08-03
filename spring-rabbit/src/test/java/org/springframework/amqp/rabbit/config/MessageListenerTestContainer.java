@@ -126,8 +126,10 @@ public class MessageListenerTestContainer
 	@Override
 	public void destroy() {
 		if (!stopInvoked) {
-			throw new IllegalStateException("Stop should have been invoked before " +
-					"destroy on " + this);
+			throw new IllegalStateException("""
+					Stop should have been invoked before \
+					destroy on \
+					""" + this);
 		}
 		destroyInvoked = true;
 	}

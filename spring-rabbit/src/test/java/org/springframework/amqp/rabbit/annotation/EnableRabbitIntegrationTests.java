@@ -1799,12 +1799,12 @@ public class EnableRabbitIntegrationTests extends NeedsManagementTests {
 
 				@Override
 				public void validate(Object target, Errors errors) {
-					if (target instanceof ValidatedClass) {
-						if (((ValidatedClass) target).getBar() > 10) {
+					if (target instanceof ValidatedClass class1) {
+						if (class1.getBar() > 10) {
 							errors.reject("bar too large");
 						}
 						else {
-							((ValidatedClass) target).setValidated(true);
+							class1.setValidated(true);
 						}
 					}
 				}
@@ -2086,8 +2086,8 @@ public class EnableRabbitIntegrationTests extends NeedsManagementTests {
 
 		@RabbitHandler(isDefault = true)
 		public String defaultHandler(@Payload Object payload) {
-			if (payload instanceof Foo) {
-				return "FOO: " + ((Foo) payload).field + " handled by default handler";
+			if (payload instanceof Foo foo) {
+				return "FOO: " + foo.field + " handled by default handler";
 			}
 			return payload.toString() + " handled by default handler";
 		}

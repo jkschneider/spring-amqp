@@ -376,8 +376,10 @@ public abstract class AbstractAdaptableMessageListener implements ChannelAwareMe
 		if (channel != null) {
 			if (resultArg.getReturnValue() instanceof CompletableFuture<?> completable) {
 				if (!this.isManualAck) {
-					this.logger.warn("Container AcknowledgeMode must be MANUAL for a Future<?> return type; "
-							+ "otherwise the container will ack the message immediately");
+					this.logger.warn("""
+							Container AcknowledgeMode must be MANUAL for a Future<?> return type; \
+							otherwise the container will ack the message immediately\
+							""");
 				}
 				completable.whenComplete((r, t) -> {
 						if (t == null) {
@@ -391,8 +393,10 @@ public abstract class AbstractAdaptableMessageListener implements ChannelAwareMe
 			}
 			else if (monoPresent && MonoHandler.isMono(resultArg.getReturnValue())) {
 				if (!this.isManualAck) {
-					this.logger.warn("Container AcknowledgeMode must be MANUAL for a Mono<?> return type" +
-							"(or Kotlin suspend function); otherwise the container will ack the message immediately");
+					this.logger.warn("""
+							Container AcknowledgeMode must be MANUAL for a Mono<?> return type\
+							(or Kotlin suspend function); otherwise the container will ack the message immediately\
+							""");
 				}
 				MonoHandler.subscribe(resultArg.getReturnValue(),
 						r -> asyncSuccess(resultArg, request, channel, source, r),
@@ -579,9 +583,11 @@ public abstract class AbstractAdaptableMessageListener implements ChannelAwareMe
 			}
 			else if (this.responseAddress == null) {
 				throw new AmqpException(
-						"Cannot determine ReplyTo message property value: " +
-								"Request message does not contain reply-to property, " +
-								"and no default response Exchange was set.");
+						"""
+						Cannot determine ReplyTo message property value: \
+						Request message does not contain reply-to property, \
+						and no default response Exchange was set.\
+						""");
 			}
 			else {
 				replyTo = this.responseAddress;

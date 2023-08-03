@@ -53,8 +53,8 @@ public class RabbitListenerContainerTestFactory implements RabbitListenerContain
 		MessageListenerTestContainer container = new MessageListenerTestContainer(endpoint);
 
 		// resolve the id
-		if (endpoint.getId() == null && endpoint instanceof AbstractRabbitListenerEndpoint) {
-			((AbstractRabbitListenerEndpoint) endpoint).setId("endpoint#" + counter.getAndIncrement());
+		if (endpoint.getId() == null && endpoint instanceof AbstractRabbitListenerEndpoint listenerEndpoint) {
+			listenerEndpoint.setId("endpoint#" + counter.getAndIncrement());
 		}
 		String id = endpoint.getId();
 		assertThat(id).as(this.getClass().getSimpleName() + " does not support " + endpoint.getClass().getSimpleName()

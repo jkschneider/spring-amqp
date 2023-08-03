@@ -495,9 +495,11 @@ public class SimpleMessageListenerContainer extends AbstractMessageListenerConta
 
 		Assert.state(
 				!(getAcknowledgeMode().isAutoAck() && getTransactionManager() != null),
-				"The acknowledgeMode is NONE (autoack in Rabbit terms) which is not consistent with having an "
-						+ "external transaction manager. Either use a different AcknowledgeMode or make sure " +
-						"the transactionManager is null.");
+				"""
+				The acknowledgeMode is NONE (autoack in Rabbit terms) which is not consistent with having an \
+				external transaction manager. Either use a different AcknowledgeMode or make sure \
+				the transactionManager is null.\
+				""");
 
 	}
 
@@ -542,8 +544,10 @@ public class SimpleMessageListenerContainer extends AbstractMessageListenerConta
 			}
 			int newConsumers = initializeConsumers();
 			if (this.consumers == null) {
-				logger.info("Consumers were initialized and then cleared " +
-						"(presumably the container was stopped concurrently)");
+				logger.info("""
+						Consumers were initialized and then cleared \
+						(presumably the container was stopped concurrently)\
+						""");
 				return;
 			}
 			if (newConsumers <= 0) {
@@ -1476,14 +1480,18 @@ public class SimpleMessageListenerContainer extends AbstractMessageListenerConta
 				if (t instanceof ConsumerCancelledException && this.consumer.isNormalCancel()) {
 					if (logger.isDebugEnabled()) {
 						logger.debug(
-								"Consumer raised exception, processing can restart if the connection factory supports it. "
-										+ "Exception summary: " + t);
+								"""
+										Consumer raised exception, processing can restart if the connection factory supports it. \
+										Exception summary: \
+										""" + t);
 					}
 				}
 				else if (logger.isWarnEnabled()) {
 					logger.warn(
-							"Consumer raised exception, processing can restart if the connection factory supports it. "
-									+ "Exception summary: " + t);
+							"""
+									Consumer raised exception, processing can restart if the connection factory supports it. \
+									Exception summary: \
+									""" + t);
 				}
 			}
 			publishConsumerFailedEvent("Consumer raised exception, attempting restart", false, t);

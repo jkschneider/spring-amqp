@@ -101,13 +101,13 @@ public class SimpleMessageConverter extends AllowedListDeserializingMessageConve
 	@Override
 	protected Message createMessage(Object object, MessageProperties messageProperties) throws MessageConversionException {
 		byte[] bytes = null;
-		if (object instanceof byte[]) {
-			bytes = (byte[]) object;
+		if (object instanceof byte[] bytes1) {
+			bytes = bytes1;
 			messageProperties.setContentType(MessageProperties.CONTENT_TYPE_BYTES);
 		}
-		else if (object instanceof String) {
+		else if (object instanceof String string) {
 			try {
-				bytes = ((String) object).getBytes(this.defaultCharset);
+				bytes = string.getBytes(this.defaultCharset);
 			}
 			catch (UnsupportedEncodingException e) {
 				throw new MessageConversionException(

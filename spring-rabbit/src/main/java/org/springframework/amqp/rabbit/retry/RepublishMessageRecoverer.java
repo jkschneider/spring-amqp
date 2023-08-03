@@ -280,15 +280,19 @@ public class RepublishMessageRecoverer implements MessageRecoverer {
 			if (adjustedStackTraceLen > 0) {
 				if (stackTraceAsString.length() > adjustedStackTraceLen) {
 					stackTraceAsString = stackTraceAsString.substring(0, adjustedStackTraceLen);
-					this.logger.warn("Stack trace in republished message header truncated due to frame_max "
-							+ "limitations; "
-							+ "consider increasing frame_max on the broker or reduce the stack trace depth", cause);
+					this.logger.warn("""
+							Stack trace in republished message header truncated due to frame_max \
+							limitations; \
+							consider increasing frame_max on the broker or reduce the stack trace depth\
+							""", cause);
 					truncated = true;
 				}
 				else if (stackTraceAsString.length() + exceptionMessage.length() > this.maxStackTraceLength) {
-					this.logger.warn("Exception message in republished message header truncated due to frame_max "
-							+ "limitations; consider increasing frame_max on the broker or reduce the exception "
-							+ "message size", cause);
+					this.logger.warn("""
+							Exception message in republished message header truncated due to frame_max \
+							limitations; consider increasing frame_max on the broker or reduce the exception \
+							message size\
+							""", cause);
 					truncatedExceptionMessage = exceptionMessage.substring(0,
 							this.maxStackTraceLength - stackTraceAsString.length() - ELLIPSIS_LENGTH) + "...";
 					truncated = true;

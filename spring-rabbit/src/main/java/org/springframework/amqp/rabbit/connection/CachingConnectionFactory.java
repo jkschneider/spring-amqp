@@ -292,14 +292,17 @@ public class CachingConnectionFactory extends AbstractConnectionFactory
 		if (!isPublisherFactory) {
 			if (rabbitConnectionFactory.isAutomaticRecoveryEnabled()) {
 				rabbitConnectionFactory.setAutomaticRecoveryEnabled(false);
-				logger.warn("***\nAutomatic Recovery was Enabled in the provided connection factory;\n"
-						+ "while Spring AMQP is generally compatible with this feature, there\n"
-						+ "are some corner cases where problems arise. Spring AMQP\n"
-						+ "prefers to use its own recovery mechanisms; when this option is true, you may receive\n"
-						+ "'AutoRecoverConnectionNotCurrentlyOpenException's until the connection is recovered.\n"
-						+ "It has therefore been disabled; if you really wish to enable it, use\n"
-						+ "'getRabbitConnectionFactory().setAutomaticRecoveryEnabled(true)',\n"
-						+ "but this is discouraged.");
+				logger.warn("""
+						***
+						Automatic Recovery was Enabled in the provided connection factory;
+						while Spring AMQP is generally compatible with this feature, there
+						are some corner cases where problems arise. Spring AMQP
+						prefers to use its own recovery mechanisms; when this option is true, you may receive
+						'AutoRecoverConnectionNotCurrentlyOpenException's until the connection is recovered.
+						It has therefore been disabled; if you really wish to enable it, use
+						'getRabbitConnectionFactory().setAutomaticRecoveryEnabled(true)',
+						but this is discouraged.\
+						""");
 			}
 			super.setPublisherConnectionFactory(new CachingConnectionFactory(getRabbitConnectionFactory(), true));
 		}
@@ -1221,10 +1224,10 @@ public class CachingConnectionFactory extends AbstractConnectionFactory
 
 		private void returnToCache(ChannelProxy proxy) {
 			if (CachingConnectionFactory.this.active && this.publisherConfirms
-					&& proxy instanceof PublisherCallbackChannel) {
+					&& proxy instanceof PublisherCallbackChannel channel) {
 
 				this.theConnection.channelsAwaitingAcks.put(this.target, proxy);
-				((PublisherCallbackChannel) proxy)
+				channel
 						.setAfterAckCallback(c ->
 								doReturnToCache(this.theConnection.channelsAwaitingAcks.remove(c)));
 			}
